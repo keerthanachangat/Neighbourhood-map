@@ -85,7 +85,7 @@ function initMap() {
 	var mapOptions = {
 		zoom: 14,
 		center: cordinates
-	}
+	};
 
 	map = new google.maps.Map(document.querySelector("#map"), mapOptions);
 	ko.applyBindings(new model());
