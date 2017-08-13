@@ -20,17 +20,9 @@ var destinations = [{
 		name: 'City Centre',
 		selection: false,
 		show: true,
-		pId: "4c1785357bf1d13a2937e881",
+		fs_Id: "4c1785357bf1d13a2937e881",
 		lat: 11.870306,
 		long:  75.367193
-	},
-	{
-		name: 'Brownnies',
-		selection: false,
-		show: true,
-		fs_Id: "4f0682d26c2563b6aef89b7c",
-		lat: 11.886120,
-		long: 75.372099
 	},
 	{
 		name: 'St. Angelo Fort',
@@ -132,7 +124,10 @@ var model = function () {
 	});
 
 
+        self.clickList = function (marker) {
 
+		google.maps.event.trigger(marker, 'click');
+	};
 
 	self.Bounce = function (animate) {
 		animate.setAnimation(google.maps.Animation.BOUNCE);
@@ -160,21 +155,33 @@ var model = function () {
 		$.ajax({
 			url: 'https://api.foursquare.com/v2/venues/' + marker.fs_Id + '?client_id=' + 'TCRCADZGL5FEKM04RJXRHVTCKP0OABS2HJPFPE1MJBXPPXOS' + '&client_secret=' + 'URV3DCPDGLXRH3LC3LWDDXQCLS1Z4K4TQOHHRJFQDX23F0ER' + '&v=20170609',
 			dataType: "json",
-			success: function (data) {
+			 .done()function (data) {
 
-				marker.likes = data.response.venue.likes.hasOwnProperty('summary') ? data.response.venue.likes.summary : "Data Not Foind";
+				marker.likes = data.response.venue.likes.hasOwnProperty('summary') ? data.response.venue.likes.summary : "Data Not Found";
 				marker.contact = data.response.venue.contact.hasOwnProperty('phone') ? data.response.venue.contact.phone : "Data Not Found";
-				marker.stars = data.response.venue.hasOwnProperty('rating') ? data.response.venue.rating.summary : "Data not Founds";
+				marker.stars = data.response.venue.hasOwnProperty('rating') ? data.response.venue.rating.summary : "Data not Found";
 
 
 				infowindow.setContent('<h3>' + marker.name + '</h2>' + '<br>' + 'No of Likes: ' + marker.likes + '<br>CustomerRatings: ' + marker.stars + '</br>Contact: ' + marker.contact);
 				infowindow.open(map, marker);
 			},
-			error: function (e) {
+			.error()function (e) {
 				self.error("Foresquare data is incorrect ");
 			}
 		});
 	};
+   
+      var f = self.location();
+
+	/
+	self.Show = function (binary) {
+		for (var i = 0; i < filter.length; i++) {
+			f[i].show(binary);
+			f[i].setVisible(binary);
+		}
+	};
+
+
 
 
 	
@@ -190,14 +197,14 @@ var model = function () {
 		if (display.length === 0) {
 			self.Show(true);
 		} else {
-			for (var i = 0; i < filter.length; i++) {
+			for (var i = 0; i < f.length; i++) {
 
-                  if (filter[i].name.toLowerCase().indexOf(refresh.toLowerCase()) > -1) {
-					filter[i].show(true);
-					filter[i].setVisible(true);
+                  if (filter[i].name.toLowerCase().indexOf(display.toLowerCase()) > -1) {
+					f[i].show(true);
+					f[i].setVisible(true);
 				} else {
-					filter[i].show(false);
-					filter[i].setVisible(false);
+					f[i].show(false);
+					f[i].setVisible(false);
 				}
 			}
 		}
