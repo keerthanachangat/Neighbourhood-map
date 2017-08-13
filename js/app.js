@@ -145,8 +145,8 @@ var model = function () {
 	self.addinfo = function (marker) {
 		$.ajax({
 			url: 'https://api.foursquare.com/v2/venues/' + marker.fs_Id + '?client_id=' + 'TCRCADZGL5FEKM04RJXRHVTCKP0OABS2HJPFPE1MJBXPPXOS' + '&client_secret=' + 'URV3DCPDGLXRH3LC3LWDDXQCLS1Z4K4TQOHHRJFQDX23F0ER' + '&v=20170609',
-			dataType: "json",
-			 .done()function (data) {
+			dataType: "json"
+			 success: function (data) {
 
 				marker.likes = data.response.venue.likes.hasOwnProperty('summary') ? data.response.venue.likes.summary : "Data Not Found";
 				marker.contact = data.response.venue.contact.hasOwnProperty('phone') ? data.response.venue.contact.phone : "Data Not Found";
@@ -156,7 +156,7 @@ var model = function () {
 				infowindow.setContent('<h3>' + marker.name + '</h2>' + '<br>' + 'No of Likes: ' + marker.likes + '<br>CustomerRatings: ' + marker.stars + '</br>Contact: ' + marker.contact);
 				infowindow.open(map, marker);
 			},
-			.error()function (e) {
+			.error: function (e) {
 				self.error("Foresquare data is incorrect ");
 			}
 		});
@@ -164,7 +164,7 @@ var model = function () {
    
       var f = self.location();
 
-	/
+	
 	self.Show = function (binary) {
 		for (var i = 0; i < filter.length; i++) {
 			f[i].show(binary);
