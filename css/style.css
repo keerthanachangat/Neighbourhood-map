@@ -1,0 +1,27 @@
+h1 {
+	
+	margin-bottom: 10px;
+	font-family: 'Alfa Slab One', cursive;
+	
+}
+
+#map {
+	height: 600px;
+	width: 100%;
+
+}
+
+#input {
+	margin-bottom: 10px;
+	width: 100%;
+	font-weight: bold;
+	background-color: black;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	font-family: 'Sedgwick Ave Display', cursive;
+
+}
