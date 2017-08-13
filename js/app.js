@@ -24,6 +24,7 @@ var destinations = [{
 		lat: 11.870306,
 		long:  75.367193
 	},
+	
 	{
 		name: 'St. Angelo Fort',
 		selection: false,
@@ -68,7 +69,7 @@ function initMap() {
 	var mapOptions = {
 		zoom: 14,
 		center: cordinates
-	};
+	}
 
 	map = new google.maps.Map(document.querySelector("#map"), mapOptions);
 	ko.applyBindings(new model());
@@ -115,10 +116,7 @@ var model = function () {
 	});
 
 
-        self.clickList = function (marker) {
 
-		google.maps.event.trigger(marker, 'click');
-	};
 
 	self.Bounce = function (animate) {
 		animate.setAnimation(google.maps.Animation.BOUNCE);
@@ -142,28 +140,15 @@ var model = function () {
 	self.error = ko.observable('');
 	
 
-	
-   
-      var f = self.location();
-
-	
-	self.Show = function (binary) {
-		for (var i = 0; i < filter.length; i++) {
-			f[i].show(binary);
-			f[i].setVisible(binary);
-		}
-	};
-	
-	
 	self.addinfo = function (marker) {
 		$.ajax({
 			url: 'https://api.foursquare.com/v2/venues/' + marker.fs_Id + '?client_id=' + 'TCRCADZGL5FEKM04RJXRHVTCKP0OABS2HJPFPE1MJBXPPXOS' + '&client_secret=' + 'URV3DCPDGLXRH3LC3LWDDXQCLS1Z4K4TQOHHRJFQDX23F0ER' + '&v=20170609',
 			dataType: "json",
 			success: function (data) {
 
-				marker.likes = data.response.venue.likes.hasOwnProperty('summary') ? data.response.venue.likes.summary : "Data Not Found";
+				marker.likes = data.response.venue.likes.hasOwnProperty('summary') ? data.response.venue.likes.summary : "Data Not Foind";
 				marker.contact = data.response.venue.contact.hasOwnProperty('phone') ? data.response.venue.contact.phone : "Data Not Found";
-				marker.stars = data.response.venue.hasOwnProperty('rating') ? data.response.venue.rating.summary : "Data not Found";
+				marker.stars = data.response.venue.hasOwnProperty('rating') ? data.response.venue.rating.summary : "Data not Founds";
 
 
 				infowindow.setContent('<h3>' + marker.name + '</h2>' + '<br>' + 'No of Likes: ' + marker.likes + '<br>CustomerRatings: ' + marker.stars + '</br>Contact: ' + marker.contact);
@@ -174,8 +159,21 @@ var model = function () {
 			}
 		});
 	};
+	
+	self.clickList = function (marker) {
 
+		google.maps.event.trigger(marker, 'click');
+	};
 
+	var f = self.location();
+
+	// markers visible
+	self.Show = function (binary) {
+		for (var i = 0; i < f.length; i++) {
+			f[i].show(binary);
+			f[i].setVisible(binary);
+		}
+	};
 
 
 
@@ -194,7 +192,7 @@ var model = function () {
 		} else {
 			for (var i = 0; i < f.length; i++) {
 
-                  if (filter[i].name.toLowerCase().indexOf(display.toLowerCase()) > -1) {
+                  if (f[i].name.toLowerCase().indexOf(display.toLowerCase()) > -1) {
 					f[i].show(true);
 					f[i].setVisible(true);
 				} else {
