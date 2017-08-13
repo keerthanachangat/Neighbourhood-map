@@ -142,25 +142,7 @@ var model = function () {
 	self.error = ko.observable('');
 	
 
-	self.addinfo = function (marker) {
-		$.ajax({
-			url: 'https://api.foursquare.com/v2/venues/' + marker.fs_Id + '?client_id=' + 'TCRCADZGL5FEKM04RJXRHVTCKP0OABS2HJPFPE1MJBXPPXOS' + '&client_secret=' + 'URV3DCPDGLXRH3LC3LWDDXQCLS1Z4K4TQOHHRJFQDX23F0ER' + '&v=20170609',
-			dataType: "json"
-			 success: function (data) {
-
-				marker.likes = data.response.venue.likes.hasOwnProperty('summary') ? data.response.venue.likes.summary : "Data Not Found";
-				marker.contact = data.response.venue.contact.hasOwnProperty('phone') ? data.response.venue.contact.phone : "Data Not Found";
-				marker.stars = data.response.venue.hasOwnProperty('rating') ? data.response.venue.rating.summary : "Data not Found";
-
-
-				infowindow.setContent('<h3>' + marker.name + '</h2>' + '<br>' + 'No of Likes: ' + marker.likes + '<br>CustomerRatings: ' + marker.stars + '</br>Contact: ' + marker.contact);
-				infowindow.open(map, marker);
-			},
-			.error: function (e) {
-				self.error("Foresquare data is incorrect ");
-			}
-		});
-	};
+	
    
       var f = self.location();
 
@@ -171,6 +153,28 @@ var model = function () {
 			f[i].setVisible(binary);
 		}
 	};
+	
+	
+	self.addinfo = function (marker) {
+		$.ajax({
+			url: 'https://api.foursquare.com/v2/venues/' + marker.fs_Id + '?client_id=' + 'TCRCADZGL5FEKM04RJXRHVTCKP0OABS2HJPFPE1MJBXPPXOS' + '&client_secret=' + 'URV3DCPDGLXRH3LC3LWDDXQCLS1Z4K4TQOHHRJFQDX23F0ER' + '&v=20170609',
+			dataType: "json",
+			success: function (data) {
+
+				marker.likes = data.response.venue.likes.hasOwnProperty('summary') ? data.response.venue.likes.summary : "Data Not Found";
+				marker.contact = data.response.venue.contact.hasOwnProperty('phone') ? data.response.venue.contact.phone : "Data Not Found";
+				marker.stars = data.response.venue.hasOwnProperty('rating') ? data.response.venue.rating.summary : "Data not Found";
+
+
+				infowindow.setContent('<h3>' + marker.name + '</h2>' + '<br>' + 'No of Likes: ' + marker.likes + '<br>CustomerRatings: ' + marker.stars + '</br>Contact: ' + marker.contact);
+				infowindow.open(map, marker);
+			},
+			error: function (e) {
+				self.error("Foresquare data is incorrect ");
+			}
+		});
+	};
+
 
 
 
