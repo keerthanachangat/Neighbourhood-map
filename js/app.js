@@ -147,8 +147,11 @@ var model = function () {
 			success: function (data) {
 
 				marker.likes = data.response.venue.likes.hasOwnProperty('summary') ? data.response.venue.likes.summary : "Data Not Foind";
+				marker.likes ? marker.likes = marker.likes : marker.likes = 'No data available';
 				marker.contact = data.response.venue.contact.hasOwnProperty('phone') ? data.response.venue.contact.phone : "Data Not Found";
+				marker.contact ? marker.contact = marker.contact : marker.likes = 'No data available';
 				marker.stars = data.response.venue.hasOwnProperty('rating') ? data.response.venue.rating.summary : "Data not Founds";
+				marker.stars ? marker.contact = marker.stars : marker.stars = 'No data available';
 
 
 				infowindow.setContent('<h3>' + marker.name + '</h2>' + '<br>' + 'No of Likes: ' + marker.likes + '<br>CustomerRatings: ' + marker.stars + '</br>Contact: ' + marker.contact);
