@@ -56,16 +56,7 @@ var destinations = [{
 		fs_Id: "4f78666ae4b0a35da5293b14",
 		lat: 11.872372,
 		long: 75.361661
-	},
-	{
-		name: 'United Colors of Benetton',
-		selection: false,
-		show: true,
-		fs_Id: "5177a61ee4b0cf59310aca94",
-		lat: 11.874622,
-		long: 75.379305
-	},
-
+	}
 
 ];
 var map;
