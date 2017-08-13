@@ -1,16 +1,16 @@
 # Neighbourhood-map
-#Single page app showing the places in kannur
+# Single page app showing the places in kannur
 
 
-#Framework used
+# Framework used
 * BootStrap
 * KnockoutJS
 * jQuery
 
-#API used
+# API used
 * Google map API
 * Foursquare API
 
 
-#How to run and open the project
+# How to run and open the project
 * run the index.html in your browser
